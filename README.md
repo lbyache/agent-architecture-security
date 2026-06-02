@@ -5,7 +5,7 @@ Skills para asistentes de código AI especializados en arquitectura de agentes y
 Implementa una arquitectura de dos agentes para auditoría de seguridad integrada en el flujo de generación de código:
 
 - **Architect Agent** (orquestador): coordina las 5 fases del proceso
-- **Security Analyst Agent** (subagente): ejecuta el Security Deep Dive y emite un score numérico de 0-30
+- **Security Analyst Agent** (subagente): ejecuta el Security Deep Dive y emite un Security Readiness Score de 0-30
 
 ---
 
@@ -30,7 +30,7 @@ Usuario: "quiero construir una API REST con login y subida de archivos"
 ┌─────────────────────────────────────────────────────────┐
 │              ARCHITECT AGENT (orquestador)               │
 │                                                         │
-│  FASE 1 ── OWASP Quick Check                            │
+│  FASE 1 ── Quick Check de Seguridad                      │
 │            Detecta vectores de riesgo en la solicitud   │
 │            Path Traversal, SQLi, XSS, Secrets,          │
 │            IDOR, Rate Limiting                           │
@@ -78,9 +78,9 @@ Usuario: "quiero construir una API REST con login y subida de archivos"
 
 ---
 
-## Sobre el Score de Seguridad
+## Sobre el Security Readiness Score
 
-El score de 0-30 evalúa **6 categorías clave** derivadas de OWASP Top 10, seleccionadas por su alta incidencia en proyectos nuevos:
+El Security Readiness Score de 0-30 evalúa **6 categorías clave** derivadas de OWASP Top 10, seleccionadas por su alta incidencia en proyectos nuevos:
 
 | # | Categoría | OWASP relacionado |
 |---|---|---|
@@ -131,7 +131,7 @@ opencode
 **Respuesta del Architect Agent:**
 
 ```
-━━━ FASE 1: OWASP QUICK CHECK ━━━━━━━━━━━━━━━━━━━
+━━━ FASE 1: QUICK CHECK DE SEGURIDAD ━━━━━━━━━━━━━
 
 C1 Path Traversal:    🔴 Alto  — upload/download de archivos sin validación de rutas
 C2 SQL Injection:     🟡 Medio — búsqueda por nombre puede construir queries dinámicas
@@ -175,7 +175,7 @@ DECISIÓN: ⚠️ APROBADO CON CONDICIONES
 ━━━ FASE 5: OFFER BUILD ━━━━━━━━━━━━━━━━━━━━━━
 
 Stack seleccionado: FastAPI + PostgreSQL + MinIO
-Score de seguridad: 22/30 ⚠️
+Security Readiness Score: 22/30 ⚠️
 
 Condiciones obligatorias antes de construir:
 1. Implementar validación de ownership en endpoints de compartir

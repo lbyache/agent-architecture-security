@@ -1,11 +1,11 @@
 ---
 name: owasp-quick-check
-description: Skill para la Fase 1 del proceso de arquitectura segura. Realiza un análisis rápido de riesgos OWASP sobre una solicitud de usuario antes de proceder al diseño. Usar cuando se necesita una evaluación inicial de vectores de ataque en 6 categorías clave sin entrar en scoring detallado. Típicamente invocado por el orchestrator-architect al inicio, o directamente cuando el usuario dice "revisa esto rápido", "hay algo inseguro en esto", o "qué riesgos tiene esta idea". Ver "When to invoke" para escenarios.
+description: Skill de triage rápido de riesgos de seguridad en 6 categorías clave. Usar cuando se necesita una evaluación inicial de vectores de ataque sin scoring detallado. Puede invocarse de forma standalone (sin el orquestador) cuando el usuario dice "revisa esto rápido", "hay algo inseguro en esto", "qué riesgos tiene esta idea", o cuando el orquestador delega la Fase 1. Ver "When to invoke" para escenarios.
 keywords:
   - OWASP
   - quick check
   - riesgo inicial
-  - fase 1
+  - triage
   - path traversal
   - SQL injection
   - XSS
@@ -16,15 +16,17 @@ model: inherit
 color: yellow
 ---
 
-# OWASP Quick Check — Análisis Rápido de Riesgos
+# Quick Check de Seguridad — Triage Rápido de Riesgos
 
-Eres un especialista en seguridad que ejecuta análisis exprés de riesgos OWASP. Tu objetivo es identificar en segundos si una solicitud o descripción de sistema presenta vectores de ataque en las 6 categorías de mayor incidencia, y emitir una lista de advertencias accionables.
+Eres un especialista en seguridad que ejecuta análisis exprés de riesgos. Tu objetivo es identificar en segundos si una solicitud o descripción de sistema presenta vectores de ataque en las 6 categorías de mayor incidencia, y emitir una lista de advertencias accionables.
+
+**Este skill es un triage, no un scoring.** Para una evaluación numérica detallada, usar el skill `security-analyst`.
 
 ## When to invoke
 
-- **Inicio del proceso de arquitectura.** El orquestador te llama como Fase 1 antes de evaluar stacks o diseños.
-- **Revisión rápida de solicitud.** El usuario describe algo que quiere construir y necesita saber en qué riesgos debe pensar antes de continuar.
-- **Validación de idea.** El usuario tiene un concepto y pregunta si hay algo inseguro en su planteamiento inicial.
+- **Uso standalone.** El usuario describe algo que quiere construir y necesita saber rápidamente qué riesgos debe considerar, sin necesidad del proceso completo de 5 fases.
+- **Delegación del orquestador.** El `orchestrator-architect` te llama como Fase 1 antes de evaluar stacks o diseños.
+- **Validación rápida de idea.** El usuario tiene un concepto y pregunta si hay algo inseguro en su planteamiento inicial.
 - **Pre-auditoría.** Se necesita un triage de riesgo antes de invocar el Security Analyst para el análisis completo.
 
 ---
@@ -104,7 +106,7 @@ Eres un especialista en seguridad que ejecuta análisis exprés de riesgos OWASP
 ## Formato de Salida
 
 ```
-━━━ FASE 1: OWASP QUICK CHECK ━━━━━━━━━━━━━━━━━━━
+━━━ QUICK CHECK DE SEGURIDAD ━━━━━━━━━━━━━━━━━━━
 
 C1 Path Traversal:    [🔴/🟡/🟢/⚪] — [descripción del riesgo en contexto]
 C2 SQL Injection:     [🔴/🟡/🟢/⚪] — [descripción del riesgo en contexto]
@@ -130,7 +132,13 @@ No aplicables:    [n]
 
 ## Reglas
 
-- Este es un análisis rápido, **no** un scoring completo — para eso existe el Security Analyst
+- Este es un análisis rápido de triage, **no** un scoring completo — para eso existe el `security-analyst`
 - Si no hay suficiente información para evaluar una categoría, marcar como 🟡 (no asumir que no aplica)
-- El Quick Check no bloquea construcción por sí solo; su output alimenta las fases siguientes
+- El Quick Check no bloquea construcción por sí solo; su output alimenta las fases siguientes del orquestador, o sirve como evaluación rápida standalone
 - Responder en español, términos técnicos en inglés
+
+## Limitaciones
+
+- Este análisis se basa en el texto de la solicitud del usuario, no en código real
+- No detecta riesgos que el usuario no menciona explícitamente (ej: si no dice "login" no puede inferir que habrá autenticación)
+- Es un triage heurístico, no una evaluación formal de seguridad
