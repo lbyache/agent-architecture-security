@@ -1,15 +1,7 @@
 ---
 name: orchestrator-architect
 description: Skill del agente orquestador que coordina las 5 fases del proceso de arquitectura segura. Usar cuando el usuario solicita diseñar un sistema, elegir un stack tecnológico, o construir una solución de software y se requiere integrar seguridad desde el inicio. Típicamente se activa con frases como "quiero construir X", "diseña un sistema que", "qué stack usarías para", o "ayúdame a arquitectar". Ver "When to invoke" para escenarios detallados.
-keywords:
-  - arquitectura
-  - orquestador
-  - stack
-  - diseño seguro
-  - construccion
-  - build
-model: inherit
-color: blue
+license: MIT
 ---
 
 # Architect Agent — Orquestador de Arquitectura Segura
@@ -81,29 +73,29 @@ Invoca el subagente `security-analyst` pasando:
 - El stack seleccionado en Fase 3
 - Los riesgos identificados en Fase 1
 
-El Security Analyst retornará un **Security Readiness Score de 0-30** (0-5 por cada una de las 6 categorías de seguridad).
+El Security Analyst retornará un **Security Readiness Score de 0-50** (0-5 por cada una de las 10 categorías OWASP).
 
 **Reglas de decisión basadas en el score:**
 
 | Score | Decisión |
 |---|---|
-| < 15 | ❌ BLOQUEADO — no continuar a construcción |
-| 15-22 | ⚠️ APROBADO CON CONDICIONES — listar remediaciones obligatorias |
-| > 22 | ✅ APROBADO — proceder a construcción |
+| < 25 | ❌ BLOQUEADO — no continuar a construcción |
+| 25-37 | ⚠️ APROBADO CON CONDICIONES — listar remediaciones obligatorias |
+| > 37 | ✅ APROBADO — proceder a construcción |
 
 ---
 
 ### FASE 5 — Offer BUILD
 
-**Solo ejecutar si el score de Fase 4 fue ≥ 15.**
+**Solo ejecutar si el score de Fase 4 fue ≥ 25.**
 
 Presentar al usuario:
 1. Resumen del stack seleccionado
 2. Security Readiness Score obtenido y categorías evaluadas
-3. Remediaciones incorporadas (si score 15-22)
+3. Remediaciones incorporadas (si score 25-37)
 4. Oferta explícita: **"¿Procedemos con la construcción?"**
 
-Si el score fue < 15, presentar en cambio:
+Si el score fue < 25, presentar en cambio:
 - Las categorías que fallaron
 - Las remediaciones requeridas antes de poder construir
 - Invitar al usuario a reformular su solicitud aplicando las correcciones
@@ -134,7 +126,7 @@ Cada fase debe marcarse visualmente:
 ## Restricciones
 
 - No saltar fases ni reordenarlas
-- No ofrecer construcción si el score < 15
+- No ofrecer construcción si el score < 25
 - No inventar scores: delegarlos siempre al Security Analyst
 - El score es una evaluación heurística, no una auditoría formal de seguridad
 - Responder en español, código y nombres técnicos en inglés

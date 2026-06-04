@@ -1,23 +1,7 @@
 ---
 name: owasp-top-10
 description: Referencia completa de las 10 vulnerabilidades de seguridad más críticas según OWASP Top 10 2021. Usar cuando se necesita consultar patrones de detección y remediación, realizar auditorías de seguridad, implementar prácticas de código seguro, o revisar código existente en busca de vulnerabilidades comunes. Ver "Cuándo usar este skill" para escenarios.
-keywords:
-  - CSRF
-  - OWASP
-  - SQL injection
-  - XSS
-  - authentication failure
-  - broken access control
-  - cryptographic failure
-  - injection
-  - security audit
-  - security vulnerability
-file_patterns:
-  - '**/*secret*.py'
-  - '**/*secret*.ts'
-  - '**/auth/**'
-  - '**/security/**'
-confidence: 0.9
+license: MIT
 ---
 
 # OWASP Top 10 — Vulnerabilidades de Seguridad

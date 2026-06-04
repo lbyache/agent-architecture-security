@@ -1,19 +1,7 @@
 ---
 name: owasp-quick-check
 description: Skill de triage rápido de riesgos de seguridad en 6 categorías clave. Usar cuando se necesita una evaluación inicial de vectores de ataque sin scoring detallado. Puede invocarse de forma standalone (sin el orquestador) cuando el usuario dice "revisa esto rápido", "hay algo inseguro en esto", "qué riesgos tiene esta idea", o cuando el orquestador delega la Fase 1. Ver "When to invoke" para escenarios.
-keywords:
-  - OWASP
-  - quick check
-  - riesgo inicial
-  - triage
-  - path traversal
-  - SQL injection
-  - XSS
-  - hardcoded secrets
-  - IDOR
-  - rate limiting
-model: inherit
-color: yellow
+license: MIT
 ---
 
 # Quick Check de Seguridad — Triage Rápido de Riesgos
